@@ -14,7 +14,7 @@ class CheckBalanceRule implements ValidationRule
         $card = Card::query()->where('number', request()->input('from_card_number'))->first();
 
         $amount = intval($value);
-        $accountBalance = $card?->account?->balance + config('transaction.fee');
+        $accountBalance = $card?->account?->balance;
 
         if ($amount > $accountBalance) {
             $fail(trans('validation.custom.account.balance_gt', ['attribute' => number_format($accountBalance)]));
